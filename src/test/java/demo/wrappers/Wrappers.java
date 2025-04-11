@@ -85,7 +85,7 @@ public class Wrappers {
         }
     }
 
-    // wrapper method for click using Actions class
+    // wrapper method for click using Actions class as normal click was not working
     public static void clickUsingActionsClass(ChromeDriver driver, By locator) {
 
         try {
@@ -106,15 +106,17 @@ public class Wrappers {
 
         try {
 
-            int ratingCount = 0;
-            List<String> allRatings = new ArrayList<>();
+            int ratingCount = 0;// to store rating count
+            List<String> allRatings = new ArrayList<>();// to sotre all ratings and display on console
             List<WebElement> ratings = driver.findElements(locator);
+
+            //to fetch each rate, then convert the text into int, then compare each text with 4
             for (WebElement rating : ratings) {
 
                 String ratingText = rating.getText();
                 double ratingValue = Double.parseDouble(ratingText);
 
-                allRatings.add(ratingText);
+                allRatings.add(ratingText);// to add the rating values into the list
 
                 if (ratingValue <= 4) {
 
@@ -138,17 +140,23 @@ public class Wrappers {
         try {
 
             boolean value = false;
+
+            //to store the discount of element
             List<WebElement> discPercElement = driver
                     .findElements(discPercLocator);
+
+            //to store the titles of the element
             List<WebElement> titlesElement = driver.findElements(titlesLocator2);
 
+            //for loop to run till discount element list size
             for (int i = 0; i < discPercElement.size(); i++) {
 
-                String discText = discPercElement.get(i).getText();
-                String titleText = titlesElement.get(i).getText();
-                String onlyDisc = discText.replace("% off", "");
-                int discValue = Integer.parseInt(onlyDisc);
+                String discText = discPercElement.get(i).getText();//to fetch the text of each element on index i
+                String titleText = titlesElement.get(i).getText();//to fetch the title of each element on index i
+                String onlyDisc = discText.replace("% off", "");// as discount also contains %off so replace method used to replace with empty string
+                int discValue = Integer.parseInt(onlyDisc);// converted to int
 
+                //to compare discount more than 17
                 if (discValue > 17) {
 
                     value = true;
@@ -174,28 +182,28 @@ public class Wrappers {
 
         try {
 
-            List<String> titles = new ArrayList<>();
-            List<String> imageUrls = new ArrayList<>();
-            List<Integer> reviews = new ArrayList<>();
+            List<String> titles = new ArrayList<>();//empty array list to store titles of element
+            List<String> imageUrls = new ArrayList<>();//empty array list to store image urls of element
+            List<Integer> reviews = new ArrayList<>();//empty array list to store reviews of element
 
             List<WebElement> products = driver.findElements(productsLocator);
 
             for (WebElement product : products) {
 
                 try {
-                    WebElement productTitle = product.findElement(titlesLocator);
-                    String title = productTitle.getAttribute("title");
+                    WebElement productTitle = product.findElement(titlesLocator);//fetch title for each element using parent element
+                    String title = productTitle.getAttribute("title");//fetch the value of attribute title
 
-                    WebElement productImageUrl = product.findElement(imageUrlsLocator);
+                    WebElement productImageUrl = product.findElement(imageUrlsLocator);//fetch image urls for each element using parent element
                     String imageUrl = productImageUrl.getAttribute("href");
 
-                    WebElement productReview = product.findElement(reviewsLocator);
-                    String reviewText = productReview.getText().replaceAll("[^\\d]", "");
-                    int review = Integer.parseInt(reviewText);
+                    WebElement productReview = product.findElement(reviewsLocator);//fetch reviews for each element using parent element
+                    String reviewText = productReview.getText().replaceAll("[^\\d]", "");//replace comas in review value using regex
+                    int review = Integer.parseInt(reviewText);//converting to int after replacing comas
 
-                    titles.add(title);
-                    imageUrls.add(imageUrl);
-                    reviews.add(review);
+                    titles.add(title);//add the title in the list
+                    imageUrls.add(imageUrl);//add the image urls in the list
+                    reviews.add(review);//add the review in the list
 
                 } catch (Exception e) {
 
@@ -204,6 +212,7 @@ public class Wrappers {
 
             }
 
+            //nested for loop to sort the reviews in descending order and sort the image urls and titles accordingly
             for (int i = 0; i < reviews.size(); i++) {
 
                 for (int j = i + 1; j < reviews.size(); j++) {
@@ -227,6 +236,7 @@ public class Wrappers {
                 }
             }
 
+            //for loop to print the final elements
             for (int i = 0; i < 5; i++) {
 
                 System.out.println("Top 5 titles based on reivew: " + titles.get(i));
