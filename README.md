@@ -1,6 +1,7 @@
 This project automates specific tasks on the Flipkart website using Selenium WebDriver, TestNG, and Java. The goal is to extract information such as star ratings, prices, discounts, titles, and image URLs based on specific conditions across three test scenarios.
 
 ✅Test Cases
+
 testCase01: Search "Washing Machine"
 Navigate to Flipkart
 Search for "Washing Machine"
