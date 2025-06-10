@@ -24,5 +24,5 @@ Technologies Used:-
 Java 21,
 Selenium WebDriver,
 TestNG,
-Gradle(for dependency management)
+Gradle
 
